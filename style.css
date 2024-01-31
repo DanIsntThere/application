@@ -212,6 +212,10 @@ input {
     font-size: 22px;
     text-align:center;
   }
+  #sort{
+    position:relative;
+    left:35%;
+  }
 
 
 .subtext {
