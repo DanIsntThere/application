@@ -23,48 +23,43 @@
             <h2>Jan 29</h2>
         </section>
 
-
-        <div class="selectWrapper">
-            <select class="selectBox" onchange="filterCards()">
-            <option style="display: none;" value="" selected>Building</option>
-            <option>Octogon</option>
-            <option>Mardale</option>
-            <option>Eskdale</option>
-            <option>Dalehead</option>
-          </select>
-          </div>
-
-          <div class="selectWrapper" id="sort">
-            <select class="selectBox">
-            <option style="display: none;" value="" selected>Sort by</option>
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-            <option>Option 4</option>
-          </select>
-          </div>
-          <br><br>
-          <div class="selectWrapper">
-            <select class="selectBox">
-            <option style="display: none;" value="" selected>Diet</option>
-            <option>Vegan</option>
-            <option>Vegitarian</option>
-            <option>Pescitarian</option>
-            <option>Lactose intolorant</option>
-          </select>
-          </div>
-          <br><br>
-        <div class="card">
-            <div class="topper">
-                <h2 class="tag">New Today</h2>
+        <div class="filtering">
+            <div class="filter-1">
+                <div class="selectWrapper">
+                <select class="selectBuilding selectBox" onchange="filterCards('Building')">
+                    <option value="" selected>Building</option>
+                    <option>Octagon</option>
+                    <option>Mardale</option>
+                    <option>Eskdale</option>
+                    <option>Dalehead</option>
+                </select>
+                    
+                </div>
+                <div class="chips">
+                    <div id="buildingChips" class="filter-chips"></div>
+                </div>
             </div>
-            <div class="bottom">
-                <div class="title">
-                    <h3>Mardale</h3>
-                    <h1>Chicken Selects</h1>
 
+            <div class="filter-2">
+                <div class="selectWrapper">
+                    <select class="selectDiet selectBox" onchange="filterCards('Diet')">
+                        <option value="" selected>Diet</option>
+                        <option>Vegan</option>
+                        <option>Vegetarian</option>
+                        <option>Pescetarian</option>
+                    </select>
+                </div>
+                <div class="chips">
+                    <div id="dietChips" class="filter-chips"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+        
         <div class="cards">
-            <div class="card" data-building="Mardale">
+            <div class="card" data-building="Mardale" data-diet="Pescitarian">
                 <div class="topper">
                     <h2 class="tag">New Today</h2>
 
@@ -81,7 +76,7 @@
                 </div>
             </div>
 
-            <div class="card" data-building="Eskdale">
+            <div class="card" data-building="Eskdale" data-diet="Pescitarian,Vegetarian">
                 <div class="topper topper-2">
                     <h2 class="tag">New Today</h2>
                 </div>
@@ -97,7 +92,7 @@
                 </div>
             </div>
 
-            <div class="card" data-building="Eskdale">
+            <div class="card" data-building="Eskdale" data-diet="Pescitarian,Vegetarian">
                 <div class="topper topper-3">
                     <h2 class="tag">New Today</h2>
                 </div>
@@ -113,7 +108,7 @@
                 </div>
             </div>
 
-            <div class="card" data-building="Dalehead">
+            <div class="card" data-building="Dalehead" data-diet="Pescitarian">
                 <div class="topper topper-4">
                     <h2 class="tag">New Today</h2>
                 </div>
@@ -129,7 +124,7 @@
                 </div>
             </div>
 
-            <div class="card" data-building="Mardale">
+            <div class="card" data-building="Mardale" data-diet="Pescitarian">
                 <div class="topper topper-5">
                     <h2 class="tag">New Today</h2>
                 </div>
@@ -145,7 +140,7 @@
                 </div>
             </div>
 
-            <div class="card" data-building="Octagon">
+            <div class="card" data-building="Octagon" data-diet="Vegan,Vegitarian,Pescitarian">
                 <div class="topper topper-6">
                     <h2 class="tag">New Today</h2>
                 </div>
@@ -170,17 +165,53 @@
     </main>
 
     <script>
-        function filterCards() {
-            var selectedBuilding = document.querySelector(".selectBox").value;
+        var selectedFilters = { Building: [], Diet: [] };
+
+        function filterCards(filterType) {
+            var selectedFilter = document.querySelector(".select" + filterType).value;
+
+            if (!selectedFilters[filterType].includes(selectedFilter) && selectedFilter !== "") {
+                selectedFilters[filterType].push(selectedFilter);
+
+                updateFilterChips(filterType);
+            }
+
             var cards = document.querySelectorAll(".card");
 
             cards.forEach(function(card) {
                 var cardBuilding = card.getAttribute("data-building");
-                if (selectedBuilding === "" || selectedBuilding === cardBuilding) {
+                var cardDiets = card.getAttribute("data-diet").split(',');
+
+                var buildingCondition = selectedFilters["Building"].length === 0 || selectedFilters["Building"].includes(cardBuilding);
+                var dietCondition = selectedFilters["Diet"].length === 0 || cardDiets.some(diet => selectedFilters["Diet"].includes(diet));
+
+                if (buildingCondition && dietCondition) {
                     card.style.display = "block";
                 } else {
                     card.style.display = "none";
                 }
+            });
+
+            // Reset the dropdown to default option
+            document.querySelector(".select" + filterType).value = "";
+        }
+
+        function removeFilterChip(filterType, value) {
+            selectedFilters[filterType] = selectedFilters[filterType].filter(filterValue => filterValue !== value);
+            updateFilterChips(filterType);
+            filterCards(filterType);
+        }
+
+        function updateFilterChips(filterType) {
+            var chipsContainer = document.getElementById(filterType.toLowerCase() + "Chips");
+            chipsContainer.innerHTML = "";
+
+            selectedFilters[filterType].forEach(function(value) {
+                var chip = document.createElement("div");
+                chip.className = "filter-chip";
+                chip.textContent = value;
+                chip.innerHTML += ' <i class="fa-solid fa-xmark" onclick="removeFilterChip(\'' + filterType + '\', \'' + value + '\')"></i>';
+                chipsContainer.appendChild(chip);
             });
         }
     </script>
