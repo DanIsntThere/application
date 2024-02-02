@@ -20,7 +20,7 @@
 
         <section class="top">
             <h1>Runshaw <br> Restaurants</h1>
-            <h2>Jan 29</h2>
+            <h2 id="date"></h2>
         </section>
 
         <div class="filtering">
@@ -46,7 +46,7 @@
                         <option value="" selected>Diet</option>
                         <option>Vegan</option>
                         <option>Vegetarian</option>
-                        <option>Pescetarian</option>
+                        <option>Pescitarian</option>
                     </select>
                 </div>
                 <div class="chips">
@@ -62,7 +62,6 @@
             <div class="card" data-building="Mardale" data-diet="Pescitarian">
                 <div class="topper">
                     <h2 class="tag">New Today</h2>
-
                 </div>
                 <div class="bottom">
                     <div class="title">
@@ -214,6 +213,17 @@
                 chipsContainer.appendChild(chip);
             });
         }
+
+        function getCurrentDate() {
+            var today = new Date();
+            var day = String(today.getDate()).padStart(2, '0');
+            var month = String(today.getMonth() + 1).padStart(2, '0');
+            var year = today.getFullYear();
+
+            return day + '/' + month + '/' + year;
+        }
+
+        document.getElementById('date').textContent = getCurrentDate();
     </script>
 
 </body>
