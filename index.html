@@ -25,7 +25,7 @@
 
 
         <div class="selectWrapper">
-            <select class="selectBox">
+            <select class="selectBox" onchange="filterCards()">
             <option style="display: none;" value="" selected>Building</option>
             <option>Octogon</option>
             <option>Mardale</option>
@@ -36,7 +36,7 @@
 
 
         <div class="cards">
-            <div class="card">
+            <div class="card" data-building="Mardale">
                 <div class="topper">
                     <h2 class="tag">New Today</h2>
 
@@ -53,7 +53,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card" data-building="Eskdale">
                 <div class="topper topper-2">
                     <h2 class="tag">New Today</h2>
                 </div>
@@ -69,7 +69,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card" data-building="Eskdale">
                 <div class="topper topper-3">
                     <h2 class="tag">New Today</h2>
                 </div>
@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card" data-building="Dalehead">
                 <div class="topper topper-4">
                     <h2 class="tag">New Today</h2>
                 </div>
@@ -101,7 +101,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card" data-building="Mardale">
                 <div class="topper topper-5">
                     <h2 class="tag">New Today</h2>
                 </div>
@@ -117,7 +117,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card" data-building="Octagon">
                 <div class="topper topper-6">
                     <h2 class="tag">New Today</h2>
                 </div>
@@ -140,6 +140,22 @@
 
 
     </main>
+
+    <script>
+        function filterCards() {
+            var selectedBuilding = document.querySelector(".selectBox").value;
+            var cards = document.querySelectorAll(".card");
+
+            cards.forEach(function(card) {
+                var cardBuilding = card.getAttribute("data-building");
+                if (selectedBuilding === "" || selectedBuilding === cardBuilding) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
