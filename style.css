@@ -7,6 +7,8 @@
 }
 
 body {
+    width: 100%;
+    overflow-x: hidden;
     background-color: #343434;
     font-family: 'Montserrat',serif;
     display: flex;
@@ -14,8 +16,7 @@ body {
 }
 
 main {
-    max-width: 900px;
-    width: 700px;
+    width: inherit;
     background-color: rgb(255, 255, 255);
     height: auto;
 }
@@ -35,6 +36,11 @@ footer {
     align-items: center;
     padding-inline: 5rem;
     background-color: rgb(203, 203, 203);
+}
+
+.selectWrapper {
+    margin-inline: 10%;
+    margin-bottom: 2rem;
 }
 
 .searchbox {
