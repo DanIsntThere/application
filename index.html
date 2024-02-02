@@ -165,53 +165,17 @@
     </main>
 
     <script>
-        var selectedFilters = { Building: [], Diet: [] };
-
-        function filterCards(filterType) {
-            var selectedFilter = document.querySelector(".select" + filterType).value;
-
-            if (!selectedFilters[filterType].includes(selectedFilter) && selectedFilter !== "") {
-                selectedFilters[filterType].push(selectedFilter);
-
-                updateFilterChips(filterType);
-            }
-
+        function filterCards() {
+            var selectedBuilding = document.querySelector(".selectBox").value;
             var cards = document.querySelectorAll(".card");
 
             cards.forEach(function(card) {
                 var cardBuilding = card.getAttribute("data-building");
-                var cardDiets = card.getAttribute("data-diet").split(',');
-
-                var buildingCondition = selectedFilters["Building"].length === 0 || selectedFilters["Building"].includes(cardBuilding);
-                var dietCondition = selectedFilters["Diet"].length === 0 || cardDiets.some(diet => selectedFilters["Diet"].includes(diet));
-
-                if (buildingCondition && dietCondition) {
+                if (selectedBuilding === "" || selectedBuilding === cardBuilding) {
                     card.style.display = "block";
                 } else {
                     card.style.display = "none";
                 }
-            });
-
-            // Reset the dropdown to default option
-            document.querySelector(".select" + filterType).value = "";
-        }
-
-        function removeFilterChip(filterType, value) {
-            selectedFilters[filterType] = selectedFilters[filterType].filter(filterValue => filterValue !== value);
-            updateFilterChips(filterType);
-            filterCards(filterType);
-        }
-
-        function updateFilterChips(filterType) {
-            var chipsContainer = document.getElementById(filterType.toLowerCase() + "Chips");
-            chipsContainer.innerHTML = "";
-
-            selectedFilters[filterType].forEach(function(value) {
-                var chip = document.createElement("div");
-                chip.className = "filter-chip";
-                chip.textContent = value;
-                chip.innerHTML += ' <i class="fa-solid fa-xmark" onclick="removeFilterChip(\'' + filterType + '\', \'' + value + '\')"></i>';
-                chipsContainer.appendChild(chip);
             });
         }
     </script>
