@@ -73,7 +73,7 @@
                         <h3 class="old">£3.90</h3>
                         <h2 class="new">£3.85</h2>
                     </div>
-                </div>
+                </div>_
             </div>
 
             <div class="card" data-building="Eskdale" data-diet="Pescitarian,Vegetarian">
@@ -163,22 +163,6 @@
 
 
     </main>
-
-    <script>
-        function filterCards() {
-            var selectedBuilding = document.querySelector(".selectBox").value;
-            var cards = document.querySelectorAll(".card");
-
-            cards.forEach(function(card) {
-                var cardBuilding = card.getAttribute("data-building");
-                if (selectedBuilding === "" || selectedBuilding === cardBuilding) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        }
-    </script>
 
 </body>
 </html>
