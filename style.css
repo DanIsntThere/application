@@ -38,6 +38,30 @@ footer {
     background-color: rgb(203, 203, 203);
 }
 
+.banner {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10%;
+}
+.display {
+    display: flex;
+    gap: 1rem;
+}
+.stretch {
+    width: 3rem;
+    height: 3rem;
+    background-color: #d5eafa;
+    border-radius: 8px;
+    border: 0;
+}
+.card-display {
+    width: 3rem;
+    height: 3rem;
+    background-color: #d5eafa;
+    border-radius: 8px;
+    border: 0;
+}
+
 .selectWrapper {
     margin-bottom: 1rem;
 }
@@ -93,7 +117,7 @@ input {
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-inline: 11%;
+    margin-inline: 9%;
     margin-block: 2rem
 }
 .top h1 {
@@ -114,7 +138,17 @@ input {
     flex-direction: column;
     gap: 2rem;
 }
-
+.cards-grid {
+    margin-inline: 5%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.card-grid {
+    width: 30%;
+    height: auto;
+}
 .card {
     width: 80%;
     border-radius: 16px;
