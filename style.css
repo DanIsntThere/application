@@ -191,7 +191,6 @@ input {
 .para {
     margin-inline: 1.2rem;
 }
-
 .price {
     display: flex;
     justify-content: center;
@@ -199,7 +198,6 @@ input {
     flex-direction: column;
     margin: 1.2rem;
 }
-
 .selectWrapper{
     border-radius:36px;
     display:inline-block;
@@ -221,7 +219,6 @@ input {
     position:relative;
     left:35%;
   }
-
 
 .subtext {
     color: #0000007a;
@@ -251,10 +248,9 @@ input {
     flex-direction: column;
     align-items: flex-start;
 }
-
 .filter-chips {
     margin-block: 10px;
-    margin-bottom: 1.4rem;
+    /* margin-bottom: 1.4rem; */
     display: flex;
     overflow-x: auto;
 }
@@ -281,5 +277,6 @@ input {
 @media (max-width: 670px) {
     .filtering {
         flex-direction: column;
+        gap:0em;
     }
 }
