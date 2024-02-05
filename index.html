@@ -13,11 +13,14 @@
         <nav>
             <div class="searchbox">
                 <h1 class="nav-title">RR</h1>
-                <input class="search" type="text" placeholder="Search">
+                
+
+                <!-- <input type="text" class="search" placeholder="Search" onkeydown="if (event.keyCode === 13) { event.preventDefault(); alert(this.value); }"> -->
+                
+                <input type="text" id="searchInput" class="search" placeholder="Search">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
         </nav>
-
         <section class="top">
             <h1>Runshaw <br> Restaurants</h1>
             <h2>Jan 29</h2>
@@ -55,9 +58,6 @@
             </div>
         </div>
 
-
-
-        
         <div class="cards">
             <div class="card" data-building="Mardale" data-diet="Pescitarian">
                 <div class="topper">
@@ -67,7 +67,7 @@
                 <div class="bottom">
                     <div class="title">
                         <h3 class="subtext">Mardale</h3>
-                        <h1>Chicken Wrap</h1>
+                        <h1 class="product">Chicken Wrap</h1>
                     </div>
                     <div class="price">
                         <h3 class="old">£3.90</h3>
@@ -83,7 +83,7 @@
                 <div class="bottom">
                     <div class="title">
                         <h3 class="subtext">Eskdale</h3>
-                        <h1>Pizza Slice</h1>
+                        <h1 class="product">Pizza Slice</h1>
                     </div>
                     <div class="price">
                         <h3 class="old">£1.10</h3>
@@ -99,7 +99,7 @@
                 <div class="bottom">
                     <div class="title">
                         <h3 class="subtext">Eskdale</h3>
-                        <h1>Cookies</h1>
+                        <h1 class="product">Cookies</h1>
                     </div>
                     <div class="price">
                         <h3 class="old">£1.50</h3>
@@ -115,7 +115,7 @@
                 <div class="bottom">
                     <div class="title">
                         <h3 class="subtext">Dalehead</h3>
-                        <h1>Chicken Burger</h1>
+                        <h1 class="product">Chicken Burger</h1>
                     </div>
                     <div class="price">
                         <h3 class="old">£3.90</h3>
@@ -131,7 +131,7 @@
                 <div class="bottom">
                     <div class="title">
                         <h3 class="subtext">Mardale</h3>
-                        <h1>Chicken Selects</h1>
+                        <h1 class="product">Chicken Selects</h1>
                     </div>
                     <div class="price">
                         <h3 class="old">£2.70</h3>
@@ -147,7 +147,7 @@
                 <div class="bottom">
                     <div class="title">
                         <h3 class="subtext">Octagon</h3>
-                        <h1>Paninis</h1>
+                        <h1 class="product">Paninis</h1>
                     </div>
                     <div class="price">
                         <h3 class="old">£3.90</h3>
@@ -163,6 +163,21 @@
 
 
     </main>
+    <script>
+        document.getElementById("searchInput").addEventListener("keyup", function() {
+            let filter = this.value.toUpperCase();
+            let cards = document.getElementsByClassName("card");
 
+            for (let i = 0; i < cards.length; i++) {
+                let product = cards[i].getElementsByClassName("product")[0].innerText.toUpperCase();
+
+                if (product.indexOf(filter) > -1) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        });
+    </script>
 </body>
 </html>
